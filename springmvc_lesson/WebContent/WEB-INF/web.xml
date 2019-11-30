@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<servlet>
+		<servlet-name>welcome</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 过滤controller层请求，通过/请求 -->
+	<servlet-mapping>
+		<servlet-name>welcome</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- 字符编码格式
+filter中的filter-name 为过滤器名，可以随便起（但是最好见名知意）。
+filter-class 为要配置filter类的类全名。
+init-param为初始化参数，
+param-name为初始化参数的名，
+param-value为参数的值。
+filter-mapping中的filter-name必须和上面filter中的filter-name相同。
+url-pattern为过滤的范围，此处写 /* 代表过滤所有的请求。 
+使用过滤器来自动过滤我们项目中的每一个参数编码，
+就不用麻烦的为每一个参数进行转码了，一个过滤器解决了所有乱码问题。-->
+	<!--   <filter>
+		<filter-name>charsetEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharsetEncodingFilter</filter-class>
+		<init-param>
+			<param-name>CharsetEncoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>charsetEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+</web-app>

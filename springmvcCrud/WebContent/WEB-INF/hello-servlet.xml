@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mvc的配置文件 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+
+<!-- 用的是defaultAnnoutionMapping 可以写多个方法 -->
+	<context:component-scan base-package="com.daralisdan.controller" />
+	<mvc:annotation-driven />
+	
+<!--用的是beansHandlerMapping，每一个类里面只能写一个， handlerMapping的配置，URL发出请求，发出的请求是/welcome.html，
+	<bean name="/welcome.html" class="com.daralisdan.controller.WelcomeController" />--> 
+	<!-- 文件上传配置 -->
+	<bean id="multipartResolves" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"></property>
+	</bean>
+	<!-- 将静态文件指定到某个特殊文件夹中统一处理 -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<!-- 视图的映射 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 全局异常处理 -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+			<!--key指我要映射需要的那个类  -->
+			<!-- 表示发现一个userException的异常，就到下的error页面 -->
+			<prop key="com.daralisdan.model.userException">error</prop>
+			<!--表示发现NullPointException空指针异常，就会到ddd这个页面处理 -->
+			<prop key="java.lang.NullPointException">ddd</prop>
+			</props>
+		</property>
+
+	</bean>
+</beans>
